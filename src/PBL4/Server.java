@@ -43,6 +43,9 @@ public class Server {
 		int arrC[];
 		int data[][];
 		int arrLd[];
+		double arrmC[];
+		double arrT[];
+		double arrG[];
 		ArrayList<Vertex> listVertex = new ArrayList<Vertex>();
 
 		public Xuly(Server server, Socket soc) {
@@ -65,18 +68,24 @@ public class Server {
 			for (int i = 0; i < this.n; i++) {
 				listVertex.add(new Vertex(nameNode[i], null));
 			}
-
+			int k = 0;
 			for (int i = 0; i < this.n; i++) {
 				for (int j = 0; j < this.n; j++) {
-					if (i == j)
-						continue;
+//					if (i == j)
+//						continue;
 					if (this.data[i][j] != 0) {
+						if(i < j) {
+						this.data[i][j] = (int) this.arrT[k];
+						this.data[j][i] = this.data[i][j];
+						k++;
+						}
 						listVertex.get(i).addNeighbour(new Edge(this.data[i][j], listVertex.get(i), listVertex.get(j)));
 					}
+					System.out.print(data[i][j] + " ");
 				}
+				System.out.println("");
 			}
 		}
-
 		public void run() {
 			try {
 				System.out.println("hehe");
@@ -97,7 +106,6 @@ public class Server {
 					for(int i = 0; i < this.size_arrLd; i++) {
 						this.arrLd[i] = dis.readInt();
 						totalLd += this.arrLd[i];
-//						System.out.print(this.arrLd[i]);
 					}
 					int  k = 0;
 					for (int i = 0; i < this.n; i++) {
@@ -110,44 +118,63 @@ public class Server {
 							}
 						}
 					}
-					double arrmC[] = new double[this.size_arrLd];
-					double arrT[] = new double[this.size_arrLd];
-					double arrG[] = new double[this.size_arrLd];
+					this.arrmC = new double[this.size_arrLd];
+					this.arrT = new double[this.size_arrLd];
+					this.arrG = new double[this.size_arrLd];
 					for(int i = 0; i < this.size_arrLd; i++) {
 						DecimalFormat df = new DecimalFormat("#.###");
 						arrmC[i] = (double)(arrC[i]*1000)/800;
 						arrT[i] = Math.round(1000/(arrmC[i] - arrLd[i]));
 						arrG[i] = (double)arrLd[i]/totalLd;
-						//Làm tròn
-//						arrmC[i] = Double.parseDouble(df.format(arrmC[i]));
-//						arrT[i] = Double.parseDouble(df.format(arrT[i]));
 						arrG[i] = Double.parseDouble(df.format(arrG[i]));
 						dos.writeDouble(arrmC[i]);
 						dos.writeDouble(arrT[i]);
 						dos.writeDouble(arrG[i]);
 					}
 				}
-				
-//				System.out.println("Connect to server");
-//				for (int i = 0; i < this.n; i++) {
-//					for (int j = 0; j < this.n; j++) {
-//						System.out.print(this.data[i][j] + " ");
-//					}
-//					System.out.println();
-//				}
-//				int a = dis.readInt();
-//				int b = dis.readInt();
-//				System.out.println(a + " " + b);
-//				String rs = "";
-//				createVertex();
-//				Dijkstra dijkstra = new Dijkstra();
-//				dijkstra.computePath(this.listVertex.get(a));
-//				List<Vertex> shortPath = dijkstra.getShortestPathTo(this.listVertex.get(b));
-//				for (int i = 0; i < shortPath.size(); i++) {
-//					rs = rs + shortPath.get(i).toString();
-//				}
-//				System.out.println(rs);
-//				ous.writeObject(rs);
+				else {
+					this.n = dis.readInt();
+					System.out.println(n);
+					this.size_arrLd = dis.readInt();
+					System.out.println(this.size_arrLd);
+					this.data = new int[this.n][this.n];
+					this.arrC = new int[this.size_arrLd];
+					this.arrLd = new int[this.size_arrLd];
+					for(int i = 0; i < this.size_arrLd; i++) {
+						this.arrLd[i] = dis.readInt();
+					}
+					int  k = 0;
+					for (int i = 0; i < this.n; i++) {
+						for (int j = 0; j < this.n; j++) {
+							this.data[i][j] = dis.readInt();
+							if(i < j && data[i][j] > 0) {
+								this.arrC[k] = data[i][j];
+								k++;
+							}
+						}
+					}
+					int a = dis.readInt();
+					int b = dis.readInt();
+					this.arrmC = new double[this.size_arrLd];
+					this.arrT = new double[this.size_arrLd];
+					this.arrG = new double[this.size_arrLd];
+					for(int i = 0; i < this.size_arrLd; i++) {
+						DecimalFormat df = new DecimalFormat("#.###");
+						arrmC[i] = (double)(arrC[i]*1000)/800;
+						arrT[i] = Math.round(1000/(arrmC[i] - arrLd[i]));
+					}
+					String rs="";
+					createVertex();
+					Dijkstra dijkstra = new Dijkstra();
+					dijkstra.computePath(this.listVertex.get(a));
+					List<Vertex> shortPath = dijkstra.getShortestPathTo(this.listVertex.get(b));
+					for (int i = 0; i < shortPath.size(); i++) {
+						rs = rs + shortPath.get(i).toString();
+					}
+					System.out.println(rs);
+					ous.writeObject(rs);
+				}
+
 
 			} 
 				catch (Exception e1) {
