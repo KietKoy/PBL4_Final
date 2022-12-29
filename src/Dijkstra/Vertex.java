@@ -1,4 +1,4 @@
-package PBL4;
+package Dijkstra;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

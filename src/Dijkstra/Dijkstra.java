@@ -1,4 +1,4 @@
-package PBL4;
+package Dijkstra;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +16,6 @@ public class Dijkstra {
 
             for (Edge edge : vertex.getEdges()) {
                 Vertex v = edge.getTargetVertex();
-//                Vertex u = edge.getStartVertex();
                 double weight = edge.getWeight();
                 double minDistance = vertex.getMinDistance() + weight;
 

@@ -1,4 +1,4 @@
-package PBL4;
+package Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,6 +10,10 @@ import java.net.Socket;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import Dijkstra.Dijkstra;
+import Dijkstra.Edge;
+import Dijkstra.Vertex;
 
 public class Server {
 	public final static int daytimePort = 8000;
@@ -113,7 +117,6 @@ public class Server {
 							this.data[i][j] = dis.readInt();
 							if(i < j && data[i][j] > 0) {
 								this.arrC[k] = data[i][j];
-//								System.out.print(this.arrC[k] + " ");
 								k++;
 							}
 						}
@@ -159,7 +162,6 @@ public class Server {
 					this.arrT = new double[this.size_arrLd];
 					this.arrG = new double[this.size_arrLd];
 					for(int i = 0; i < this.size_arrLd; i++) {
-						DecimalFormat df = new DecimalFormat("#.###");
 						arrmC[i] = (double)(arrC[i]*1000)/800;
 						arrT[i] = Math.round(1000/(arrmC[i] - arrLd[i]));
 					}
@@ -174,11 +176,8 @@ public class Server {
 					System.out.println(rs);
 					ous.writeObject(rs);
 				}
-
-
 			} 
 				catch (Exception e1) {
-
 			}
 		}
 

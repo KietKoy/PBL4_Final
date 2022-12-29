@@ -1,4 +1,4 @@
-package PBL4;
+package Dijkstra;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -21,7 +21,7 @@ public class Draw extends JPanel {
 	String[] nameNode;
 	public ArrayList<Vertex> listVertex = new ArrayList<Vertex>();
 	ArrayList<Vertex> shortPath = new ArrayList<Vertex>();
-	Draw(int[][] data, int n, ArrayList<Vertex> shortPath) {
+	public Draw(int[][] data, int n, ArrayList<Vertex> shortPath) {
 		setPreferredSize(new Dimension(420, 420));
 		this.data = data;
 		this.n = n;

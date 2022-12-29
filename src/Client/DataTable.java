@@ -1,4 +1,4 @@
-package PBL4;
+package Client;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
