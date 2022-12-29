@@ -28,6 +28,10 @@ public class DataTable extends JFrame {
 	int[][] data = new int[n][n];
 	String[] columnNames = {"i", "Line", "Ld(pkts/sec)", "C(kbps)", "mC(pkts/sec)", "T(msec)", "Trong so"};
 	List<String> list1 = new ArrayList<String>();
+	List<Double> arrmC = new ArrayList<Double>();
+	List<Double> arrT = new ArrayList<Double>();
+	List<Double> arrG = new ArrayList<Double>();
+	
 
 	/**
 	 * Launch the application.
@@ -38,7 +42,10 @@ public class DataTable extends JFrame {
 				try {
 					int[][] data = {{0,0}};
 					List<String> list = new ArrayList<String>();
-					DataTable frame = new DataTable(data, 0, list);
+					List<Double> arrmC = new ArrayList<Double>();
+					List<Double> arrT = new ArrayList<Double>();
+					List<Double> arrG = new ArrayList<Double>();
+					DataTable frame = new DataTable(data, 0, list, arrmC, arrT, arrG);
 					frame.setTitle("Bang phan tich mang con");
 
 					frame.setVisible(true);
@@ -51,10 +58,14 @@ public class DataTable extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DataTable(int[][] data, int n, List<String> s) {
+	public DataTable(int[][] data, int n, List<String> s, List<Double> arrmC, List<Double> arrT, List<Double> arrG) {
 		this.data = data;
 		this.n = n;
 		this.list1 = s;
+		this.arrmC = arrmC;
+		this.arrT = arrT;
+		this.arrG = arrG;
+		
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 643, 454);
@@ -117,6 +128,15 @@ public class DataTable extends JFrame {
 		}
 		for(int i = 0;i < matran.length;i++) {
 			dtm.setValueAt(matran[i], i, 3);
+		}
+		for(int i = 0;i < arrmC.size();i++) {
+			dtm.setValueAt(arrmC.get(i), i, 4);
+		}
+		for(int i = 0;i < arrT.size();i++) {
+			dtm.setValueAt(arrT.get(i), i, 5);
+		}
+		for(int i = 0;i < arrG.size();i++) {
+			dtm.setValueAt(arrG.get(i), i, 6);
 		}
 		sp = new JScrollPane(table);
 		sp.setViewportView(table);

@@ -238,10 +238,10 @@ public class ClientData extends JFrame implements Runnable {
 
         showFileDialogButton = new JButton("Open File");
         showFileDialogButton.setBounds(300, 350, 100, 30);
-        JLabel statusLabel = new JLabel("File name");
-        statusLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        statusLabel.setBounds(420, 350, 350, 30);
-        contentPane.add(statusLabel);
+//        JLabel statusLabel = new JLabel("File name");
+//        statusLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//        statusLabel.setBounds(420, 350, 350, 30);
+//        contentPane.add(statusLabel);
         showFileDialogButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {               	
@@ -251,7 +251,7 @@ public class ClientData extends JFrame implements Runnable {
                     int returnVal1 = fileDialog.showOpenDialog(null);
                     if(returnVal1 == JFileChooser.APPROVE_OPTION) {
                     	java.io.File f = fileDialog.getSelectedFile();
-                    	statusLabel.setText("File Selected :" + f.getPath());
+//                    	statusLabel.setText("File Selected :" + f.getPath());
                     	
                     	String url = f.getPath();
 
@@ -326,7 +326,7 @@ public class ClientData extends JFrame implements Runnable {
 		sp.setBounds(10, 73, 685, 209);
 		contentPane.add(sp);
 		new Thread(this).start();
-		this.setVisible(true);
+		//this.setVisible(true);
 	}
 	
 	public void run() {

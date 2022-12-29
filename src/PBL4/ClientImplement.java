@@ -143,9 +143,9 @@ public class ClientImplement extends JFrame implements Serializable {
 		JButton btnNewButton = new JButton("B\u1EA3ng s\u1ED1 li\u1EC7u");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				double arrmC[] = new double[list.size()];
-				double arrT[] = new double[list.size()];
-				double arrG[] = new double[list.size()];
+				List<Double> arrmC = new ArrayList<Double>();
+				List<Double> arrT = new ArrayList<Double>();
+				List<Double> arrG = new ArrayList<Double>();
 				try {
 						Socket soc = new Socket(ipServer, 8000);
 						dis =  new DataInputStream(soc.getInputStream());
@@ -170,10 +170,10 @@ public class ClientImplement extends JFrame implements Serializable {
 						}
 						
 						for(int i = 0; i < list.size(); i++) {
-							arrmC[i] = dis.readDouble();
-							arrT[i] = dis.readDouble();
-							arrG[i] = dis.readDouble();
-							System.out.println(arrmC[i] + " " + arrT[i] + " " + arrG[i]);
+							arrmC.add(dis.readDouble()) ;
+							arrT.add(dis.readDouble());
+							arrG.add(dis.readDouble());
+							System.out.println(arrmC.get(i) + " " + arrT.get(i) + " " + arrG.get(i));
 						}
 					}
 				 catch (Exception e1) {
@@ -188,7 +188,7 @@ public class ClientImplement extends JFrame implements Serializable {
 				for(int i = 0;i < list.size();i++) {
 					s1.add(list.get(i).getText());
 				}
-				DataTable dt = new DataTable(data, n, s1);
+				DataTable dt = new DataTable(data, n, s1, arrmC, arrT, arrG);
 				dt.setVisible(true);
 //				frame.setVisible(false);
 			}
@@ -227,10 +227,10 @@ public class ClientImplement extends JFrame implements Serializable {
 		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton_3.setBounds(450, b, 134, 37);
 		contentPane.add(btnNewButton_3);
-		JLabel statusLabel = new JLabel("File name");
-        statusLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        statusLabel.setBounds(600, b, 350, 30);
-        contentPane.add(statusLabel);
+//		JLabel statusLabel = new JLabel("File name");
+//        statusLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//        statusLabel.setBounds(600, b, 350, 30);
+//        contentPane.add(statusLabel);
 		
 		btnNewButton_3.addActionListener(new ActionListener() {
 			@Override
@@ -245,7 +245,7 @@ public class ClientImplement extends JFrame implements Serializable {
 		        
 		        if(returnVal1 == JFileChooser.APPROVE_OPTION) {
 		        	java.io.File f = fileDialog.getSelectedFile();
-                	statusLabel.setText("File Selected :" + f.getPath());
+//                	statusLabel.setText("File Selected :" + f.getPath());
                 	
                 	String url = f.getPath();
 		        	try {
