@@ -1,4 +1,4 @@
-package PBL4;
+package Dijkstra;
 
 public class Edge {
     private double weight;
