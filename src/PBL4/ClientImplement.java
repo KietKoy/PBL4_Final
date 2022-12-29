@@ -346,6 +346,15 @@ public class ClientImplement extends JFrame implements Serializable {
 					ois = new ObjectInputStream(soc.getInputStream());
 					dos.writeUTF("shortpath");
 					dos.writeInt(n);
+					dos.writeInt(list.size());
+					String[] matran = new String[list.size()];
+					int k = 0;
+					for(int i = 0; i < list.size(); i++) {
+						String[] arrOfStr = list.get(i).getText().split(":", 0);
+						matran[k] = arrOfStr[1];
+						dos.writeInt(Integer.parseInt(matran[k]));
+						k++;
+					}
 					for (int i = 0; i < n; i++) {
 						for (int j = 0; j < n; j++) {
 							dos.writeInt(data[i][j]);
